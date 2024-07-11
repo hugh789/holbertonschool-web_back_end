@@ -1,53 +1,53 @@
 export default class HolbertonCourse {
-    constructor(name, length, students) {
-       if ((typeof name) !== 'string') {
-           throw TypeError('name must be a string');
-       }
-       if (typeof length !== 'number') {
-           throw TypeError('length must be a number');
-       }
-       if (!Array.isArray(students)) {
-           throw TypeError('students must be an array');
-       }
-
+  constructor(name, length, students) {
+    if ((typeof name) !== 'string') {
+      throw new TypeError('Name must be a string');
+    }
+    if ((typeof length) !== 'number') {
+      throw new TypeError('Length must be a number');
+    }
+    if (!Array.isArray(students)) {
+      throw new TypeError('Not an array');
     }
 
-    // Use the setters instead of assigning directly to priv vars; benefits are encapsulation, validation, future-proofing (make code flexible and adaptable if validation becomes more complex in future)
+    // Use the setters instead of assigning directly to the priv vars
     this.name = name;
     this.length = length;
     this.students = students;
-}
+  }
 
-get name() {
+  get name() {
     return this._name;
-}
+  }
 
-set name(newName) {
+  set name(newName) {
     if ((typeof newName) !== 'string') {
-        throw TypeError('name must be a string');
+      throw new TypeError('Name must be a string');
     }
     this._name = newName;
-}
-get length() {
+  }
+
+  get length() {
     return this._length;
-}   
+  }
 
-set length(newLen) {
+  set length(newLen) {
     if ((typeof newLen) !== 'number') {
-        throw TypeError('length must be a number');
+      throw new TypeError('Length must be a number');
     }
-    this._length = newLen;
-}
+    this._length = Number(newLen);
+  }
 
-get students() {
+  get students() {
     return this._students;
-}
+  }
 
-set students(newStudents) {
+  set students(newStudents) {
     if (!Array.isArray(newStudents)) {
-        throw TypeError('students must be an array');
+      throw new TypeError('Not an array');
     }
     this._students = newStudents;
+  }
 }
 
 // Implement a class named HolbertonCourse:
