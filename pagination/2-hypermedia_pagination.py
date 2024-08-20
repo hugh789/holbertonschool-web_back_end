@@ -94,4 +94,3 @@ class Server:
         }
 
         return name_dict
-    
