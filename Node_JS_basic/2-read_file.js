@@ -54,5 +54,3 @@ function countStudents(path) {
 }
 
 module.exports = countStudents; // Export the function to be used in other files
-
-
