@@ -13,8 +13,8 @@ function countStudents(path) {
     // Split the file content by new lines to process each line separately
     const lines = data.split('\n');
 
-    // Remove the first line, which is the header, as it's not student data
-    const header = lines.shift();
+    // Remove the first line, which is the header (not used, but kept to maintain CSV format)
+    lines.shift();
 
     // Initialize an object to store student names grouped by their field of study
     const fields = {};
@@ -44,9 +44,9 @@ function countStudents(path) {
     console.log(`Number of students: ${studentCount}`);
 
     // Log the number of students in each field and their names
-    for (const field in fields) {
+    Object.keys(fields).forEach((field) => {
       console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
-    }
+    });
   } catch (error) {
     // If any error occurs (file not found or other issues), throw an error with a specific message
     throw new Error('Cannot load the database');
@@ -54,4 +54,5 @@ function countStudents(path) {
 }
 
 module.exports = countStudents; // Export the function to be used in other files
+
 
