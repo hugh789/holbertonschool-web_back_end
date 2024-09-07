@@ -1,35 +1,30 @@
-const fs = require('fs'); // Import the file system module to read files
-const readline = require('readline'); // Import readline module to read files line by line
+const fs = require('fs').promises;
 
-function countStudents(path) {
-  return new Promise((resolve, reject) => {
-    const students = {};
-    let totalStudents = 0;
+module.exports = async function countStudents(path) {
+  try {
+    const data = await fs.readFile(path, 'utf-8');
+    const rows = data.split('\n').slice(1);
 
-    // Create a readable stream for reading the file
-    const stream = fs.createReadStream(path);
+    const studentsCS = [];
+    const studentsSWE = [];
 
-    // Handle errors if the file doesn't exist or can't be read
-    stream.on('error', () => {
-      reject(new Error('Cannot load the database'));
-    });
+    for (const row of rows) {
+      const data = row.split(',');
 
-    const rl = readline.createInterface({
-      input: stream,
-    });
-
-    rl.on('line', (line) => {
-      if (line.trim() && !line.startsWith('firstname')) { // Skip empty lines and header
-        totalStudents += 1;
-        const [firstname, , , field] = line.split(',');
-        if (!students[field]) {
-          students[field] = [];
-        }
-        students[field].push(firstname);
+      // if field is CS add to CS array
+      if (data[3] === 'CS') {
+        studentsCS.push(data[0]);
       }
-    });
+      // if field is SWE add to SWE array
+      if (data[3] === 'SWE') {
+        studentsSWE.push(data[0]);
+      }
+    }
 
-    rl.on('close', () => {
-      console.log(`Number of students: ${totalStudents}`);
-      Object.keys(students).forEach((field) => {
-        console.log(`Number of students in ${field}: ${students[field].length}
+    console.log(`Number of students: ${studentsCS.length + studentsSWE.length}`);
+    console.log(`Number of students in CS: ${studentsCS.length}. List: ${studentsCS.join(', ')}`);
+    console.log(`Number of students in SWE: ${studentsSWE.length}. List: ${studentsSWE.join(', ')}`);
+  } catch (err) {
+    throw new Error('Cannot load the database');
+  }
+};
