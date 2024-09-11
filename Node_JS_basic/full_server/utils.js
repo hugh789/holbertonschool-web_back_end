@@ -42,4 +42,4 @@ function readDatabase(filePath) {
 }
 
 // Export the readDatabase function for use in other modules
-module.exports = readDatabase; // Changed to CommonJS syntax for module export
+export default readDatabase;

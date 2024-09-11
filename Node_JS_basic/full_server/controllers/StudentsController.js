@@ -2,7 +2,7 @@
 // for retrieving student information. It uses the `readDatabase` function to 
 // read student data from a CSV file and respond with the list of all students 
 // or each field (order by alphabetic order case insensitive), a line that displays the number of students in the field, and the list of first names (ordered by appearance in the database file) with the following format: Number of students in FIELD: 6. List: LIST_OF_FIRSTNAMES
-If the database is not available, it should return a status 500 and the error message Cannot load the database
+// If the database is not available, it should return a status 500 and the error message Cannot load the database
 import readDatabase from '../utils';
 
 export default class StudentController {
